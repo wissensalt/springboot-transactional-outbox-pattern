@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  mysql-top:
+    image: mysql:5.7
+    container_name: mysql-spring-top
+    restart: always
+    networks:
+      - spring-top-network
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: spring_top
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+  service-spring-top:
+    container_name: service-spring-top
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - spring-top-network
+    depends_on:
+      - mysql-top
+
+networks:
+  spring-top-network:
