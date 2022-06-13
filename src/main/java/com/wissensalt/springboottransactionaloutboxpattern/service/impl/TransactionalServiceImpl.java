@@ -3,6 +3,7 @@ package com.wissensalt.springboottransactionaloutboxpattern.service.impl;
 import com.wissensalt.springboottransactionaloutboxpattern.dto.DeleteData;
 import com.wissensalt.springboottransactionaloutboxpattern.repository.AccountRepository;
 import com.wissensalt.springboottransactionaloutboxpattern.repository.LoginHistoryRepository;
+import com.wissensalt.springboottransactionaloutboxpattern.service.PublisherService;
 import com.wissensalt.springboottransactionaloutboxpattern.service.TransactionalService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,7 @@ public class TransactionalServiceImpl implements TransactionalService {
 
     private final AccountRepository accountRepository;
     private final LoginHistoryRepository loginHistoryRepository;
+    private final PublisherService publisherService;
 
     @Transactional
     @Override

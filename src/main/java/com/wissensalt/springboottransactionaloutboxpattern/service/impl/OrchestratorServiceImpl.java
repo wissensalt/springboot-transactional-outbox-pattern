@@ -1,7 +1,6 @@
 package com.wissensalt.springboottransactionaloutboxpattern.service.impl;
 
 import com.github.javafaker.Faker;
-import com.wissensalt.springboottransactionaloutboxpattern.dto.DeleteData;
 import com.wissensalt.springboottransactionaloutboxpattern.model.Account;
 import com.wissensalt.springboottransactionaloutboxpattern.model.LoginHistory;
 import com.wissensalt.springboottransactionaloutboxpattern.repository.AccountRepository;
@@ -68,10 +67,12 @@ public class OrchestratorServiceImpl implements OrchestratorService {
 
     @Override
     public Completable deleteRollback() {
-        return Completable.create(completableEmitter -> {
-                    DeleteData deleteData = inquiryService.buildDeleteData().block();
-                    transactionalService.deleteRollback(deleteData);
-                }
+        return Completable.create(completableEmitter ->
+                inquiryService.buildDeleteData()
+                        .subscribe(deleteData -> {
+                            transactionalService.deleteRollback(deleteData);
+                            publisherService.publishDeletedData(deleteData);
+                        })
         );
     }
 }
