@@ -4,15 +4,14 @@ import com.wissensalt.springboottransactionaloutboxpattern.service.OrchestratorS
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
 
 @RequiredArgsConstructor
 @RestController
-@EnableR2dbcRepositories
 @SpringBootApplication
 public class SpringbootTransactionalOutboxPatternApplication {
 
@@ -33,20 +32,24 @@ public class SpringbootTransactionalOutboxPatternApplication {
     }
 
     @DeleteMapping("/delete")
-    public boolean deleteAccounts() {
-        orchestratorService
-                .deleteViaTransactionalOutboxPattern()
-                .subscribe();
+    public Mono<Boolean> deleteAccounts() {
+        return Mono.fromSupplier(() -> {
+            orchestratorService
+                    .deleteViaTransactionalOutboxPattern()
+                    .subscribe();
 
-        return true;
+            return true;
+        });
     }
 
     @DeleteMapping("/delete-rollback")
-    public boolean deleteRollback() {
-        orchestratorService
-                .deleteRollback()
-                .subscribe();
+    public Mono<Boolean> deleteRollback() {
+        return Mono.fromSupplier(() -> {
+            orchestratorService
+                    .deleteRollback()
+                    .subscribe();
 
-        return true;
+            return true;
+        });
     }
 }

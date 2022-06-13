@@ -57,19 +57,12 @@ public class OrchestratorServiceImpl implements OrchestratorService {
 
     @Override
     public Completable deleteViaTransactionalOutboxPattern() {
-//        return Completable.create(completableEmitter ->
-//                inquiryService.buildDeleteData()
-//                        .subscribe(deleteData -> {
-//                            transactionalService.deleteAccounts(deleteData);
-//                            publisherService.publishDeletedData(deleteData);
-//                        })
-//        );
-
         return Completable.create(completableEmitter ->
                 inquiryService.buildDeleteData()
-                        .doOnNext(transactionalService::deleteAccounts)
-                        .doOnError(Throwable::printStackTrace)
-                        .doOnNext(publisherService::publishDeletedData)
+                        .subscribe(deleteData -> {
+                            transactionalService.deleteAccounts(deleteData);
+                            publisherService.publishDeletedData(deleteData);
+                        })
         );
     }
 

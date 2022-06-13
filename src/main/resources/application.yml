@@ -1,14 +1,9 @@
 spring:
-#  datasource:
-#    driver-class-name : com.mysql.cj.jdbc.Driver
-#    url : jdbc:mysql://localhost:3306/spring_top?autoReconnect=true&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-#    username : user
-#    password : password
-  r2dbc:
-    url: r2dbc:mysql://localhost:3306
-    name: spring_top
-    username: user
-    password: password
+  datasource:
+    driver-class-name : com.mysql.cj.jdbc.Driver
+    url : jdbc:mysql://localhost:3306/spring_top?autoReconnect=true&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username : user
+    password : password
   jpa:
     show-sql: true
     generate-ddl: true
