@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name : com.mysql.cj.jdbc.Driver
-    url : jdbc:mysql://localhost:3306/spring_top?autoReconnect=true&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    url : jdbc:mysql://mysql-top:3306/spring_top?autoReconnect=true&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     username : user
     password : password
   jpa:
