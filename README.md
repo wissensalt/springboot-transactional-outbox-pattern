@@ -21,11 +21,11 @@ curl http://localhost:8080/generate?total_accounts=100&total_login_history_per_a
 ###Simulate Rollback Transaction
 ```bash
 curl -X DELETE http://localhost:8080/delete-rollback
-### {"timestamp":"2022-06-12T10:59:10.074+00:00","status":500,"error":"Internal Server Error","path":"/delete-rollback"}
+### true
 ```
 
 ###Simulate Success Transaction
 ```bash
 curl -X DELETE http://localhost:8080/delete
-### {"timestamp":"2022-06-12T10:59:10.074+00:00","status":500,"error":"Internal Server Error","path":"/delete-rollback"}
+### true
 ```
